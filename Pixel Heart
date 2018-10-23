@@ -1,0 +1,337 @@
+/*
+Rae Campbell
+Creates a pixel heart svg from input SIZE.
+Input allows image scaling. Code currently has default and minimum size set to 600.
+*\
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+void coordinates(ofstream &output, int size);
+string colour(int x_index, int y_index);
+void generate_svg(int size);
+
+//Part 1. Base Grid -> SVG Grid
+void coordinates(ofstream &output, int size) {
+	const int row = 17;
+	const int plus = row + 1;
+	const int square = plus * plus;
+	double width = (size / row) * 1.0;
+	double x_coordinates[square];
+	double y_coordinates[square];
+	int x_index[square];
+	int y_index[square];
+	int e = 0;
+	string colours[square];
+	x_index[0] = 0;
+	y_index[0] = 0;
+
+	for (int i = 1; e < plus; i++) {
+		if (i % plus == 0) {
+			e++;
+			if (e == plus) { break; }
+			else {
+				x_index[i] = e;
+				y_index[i] = 0;
+			}
+		}
+		else {
+			x_index[i] = e;
+			y_index[i] = i % plus;
+		}
+	}
+	
+	for (int i = 0; i < square; i++) {
+		colours[i] = colour(x_index[i], y_index[i]);
+		x_coordinates[i] = x_index[i] * width;
+		y_coordinates[i] = y_index[i] * width;
+	}
+
+	for (int n = 0; n < square; n++) {
+		output << "<rect x='" << x_coordinates[n] << "' y='" << y_coordinates[n]
+			<< "' height='" << width << "' width='" << width
+			<< "' fill='" << colours[n] << "' />" << endl;
+	}
+}
+
+//Part 2. Pixel Fill Colour.
+string colour(int x_index, int y_index) {
+	string red = "rgb(255, 0, 0)";
+	string white = "rgb(255, 255, 255)";
+	string black = "rgb(0, 0, 0)";
+
+	if (x_index == 0) {
+		return white;
+	}
+	else if (x_index == 1) {
+		if (y_index <= 3) {
+			return white;
+		}
+		else if (y_index <= 7) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 2) {
+		if (y_index <= 2) {
+			return white;
+		}
+		else if (y_index == 3) {
+			return black;
+		}
+		else if (y_index <= 7) {
+			return red;
+		}
+		else if (y_index <= 9) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 3) {
+		if (y_index <= 1) {
+			return white;
+		}
+		else if (y_index == 2) {
+			return black;
+		}
+		else if (y_index <= 4) {
+			return red;
+		}
+		else if (y_index == 5) {
+			return white;
+		}
+		else if (y_index <= 9) {
+			return red;
+		}
+		else if (y_index == 10) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 4) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index <= 3) {
+			return red;
+		}
+		else if (y_index == 4) {
+			return white;
+		}
+		else if (y_index <= 10) {
+			return red;
+		}
+		else if (y_index == 11) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 5) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index == 2) {
+			return red;
+		}
+		else if (y_index == 3) {
+			return white;
+		}
+		else if (y_index <= 11) {
+			return red;
+		}
+		else if (y_index == 12) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 6) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index <= 12) {
+			return red;
+		}
+		else if (y_index == 13) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 7) {
+		if (y_index <= 1) {
+			return white;
+		}
+		else if (y_index == 2) {
+			return black;
+		}
+		else if (y_index <= 13) {
+			return red;
+		}
+		else if (y_index == 14) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 8) {
+		if (y_index <= 2) {
+			return white;
+		}
+		else if (y_index == 3) {
+			return black;
+		}
+		else if (y_index <= 14) {
+			return red;
+		}
+		else if (y_index == 15) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 9) {
+		if (y_index <= 2) {
+			return white;
+		}
+		else if (y_index == 3) {
+			return black;
+		}
+		else if (y_index <= 14) {
+			return red;
+		}
+		else if (y_index == 15) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 10) {
+		if (y_index <= 1) {
+			return white;
+		}
+		else if (y_index == 2) {
+			return black;
+		}
+		else if (y_index <= 13) {
+			return red;
+		}
+		else if (y_index == 14) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 11) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index <= 12) {
+			return red;
+		}
+		else if (y_index == 13) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 12) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index <= 11) {
+			return red;
+		}
+		else if (y_index == 12) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 13) {
+		if (y_index == 0) {
+			return white;
+		}
+		else if (y_index == 1) {
+			return black;
+		}
+		else if (y_index <= 10) {
+			return red;
+		}
+		else if (y_index == 11) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 14) {
+		if (y_index <= 1) {
+			return white;
+		}
+		else if (y_index == 2) {
+			return black;
+		}
+		else if (y_index <= 9) {
+			return red;
+		}
+		else if (y_index == 10) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 15) {
+		if (y_index <= 2) {
+			return white;
+		}
+		else if (y_index == 3) {
+			return black;
+		}
+		else if (y_index <= 7) {
+			return red;
+		}
+		else if (y_index <= 9) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 16) {
+		if (y_index <= 3) {
+			return white;
+		}
+		else if (y_index <= 7) {
+			return black;
+		}
+		else { return white; }
+	}
+	else if (x_index == 17) {
+		return white;
+	}
+}
+
+//Part 3. Generate SVG
+void generate_svg(int size) {
+	ofstream output;
+	output.open("pixel_heart.svg");
+	output << "<svg xmlns='http://www.w3.org/2000/svg' width='" << size
+		<< "' height='" << size << "' version='1.1'>" << endl;
+	coordinates(output, size);
+
+	output << "</svg>";
+	output.close();
+}
+
+int main() {
+	int size = 600;
+  cout << "Input Size. Size >= 600." << endl;
+	generate_svg(size);
+
+return 0;
+}
