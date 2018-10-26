@@ -331,6 +331,11 @@ void generate_svg(int size) {
 int main() {
 	int size = 600;
   cout << "Input Size. Size >= 600." << endl;
+  cin >> size;
+  if (size < 600) {
+  cout << "Size has been reset to 600" << endl;
+  size = 600;
+  }
 	generate_svg(size);
 
 return 0;
